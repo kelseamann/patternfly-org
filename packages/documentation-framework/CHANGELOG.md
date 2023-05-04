@@ -3,6 +3,120 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.0.0-alpha.32 (2023-05-02)
+
+**Note:** Version bump only for package @patternfly/documentation-framework
+
+
+
+
+
+# 2.0.0-alpha.31 (2023-05-01)
+
+
+### Bug Fixes
+
+* update Text component summary to fix build ([64b3590](https://github.com/patternfly/patternfly-org/commit/64b359029fa14be143ddec212fdf89a3033145d5))
+
+
+
+
+
+# 2.0.0-alpha.30 (2023-04-27)
+
+
+### Bug Fixes
+
+* white space change to test CI ([e9e7ed3](https://github.com/patternfly/patternfly-org/commit/e9e7ed3cf6007fcf022dd7693bfed12bdf9d7e9a))
+
+
+
+
+
+# 2.0.0-alpha.29 (2023-04-26)
+
+
+### Bug Fixes
+
+* sidebar open by default ([#3506](https://github.com/patternfly/patternfly-org/issues/3506)) ([fb5f086](https://github.com/patternfly/patternfly-org/commit/fb5f08611d3edde80a559635b39dab7138f06d1d))
+
+
+
+
+
+# 2.0.0-alpha.28 (2023-04-26)
+
+**Note:** Version bump only for package @patternfly/documentation-framework
+
+
+
+
+
+# 2.0.0-alpha.27 (2023-04-25)
+
+
+### Bug Fixes
+
+* **docs:** Update static dir and fix null loading ([#3505](https://github.com/patternfly/patternfly-org/issues/3505)) ([e65a1b2](https://github.com/patternfly/patternfly-org/commit/e65a1b21ae7671322adcbcef1ada69436fd07802))
+
+
+
+
+
+# 2.0.0-alpha.26 (2023-04-21)
+
+**Note:** Version bump only for package @patternfly/documentation-framework
+
+
+
+
+
+# 2.0.0-alpha.25 (2023-04-19)
+
+**Note:** Version bump only for package @patternfly/documentation-framework
+
+
+
+
+
+# 2.0.0-alpha.24 (2023-04-17)
+
+**Note:** Version bump only for package @patternfly/documentation-framework
+
+
+
+
+
+# 2.0.0-alpha.23 (2023-04-17)
+
+
+### Features
+
+* **docs-framework:** add support for exposing function documentation ([#3485](https://github.com/patternfly/patternfly-org/issues/3485)) ([2f19ded](https://github.com/patternfly/patternfly-org/commit/2f19deda84c75042df1870c0950bb173eb2c3d84))
+
+
+
+
+
+# 2.0.0-alpha.22 (2023-04-17)
+
+**Note:** Version bump only for package @patternfly/documentation-framework
+
+
+
+
+
+# 2.0.0-alpha.21 (2023-04-15)
+
+
+### Bug Fixes
+
+* clean up references to katacoda ([#3491](https://github.com/patternfly/patternfly-org/issues/3491)) ([5de986b](https://github.com/patternfly/patternfly-org/commit/5de986b917ee7edf9c476bb2df2f2ee4d454a7e1))
+
+
+
+
+
 # 2.0.0-alpha.20 (2023-04-14)
 
 **Note:** Version bump only for package @patternfly/documentation-framework

@@ -1,7 +1,7 @@
 {
   "name": "@patternfly/documentation-framework",
   "description": "A framework to build documentation for PatternFly.",
-  "version": "2.0.0-alpha.20",
+  "version": "2.0.0-alpha.32",
   "author": "Red Hat",
   "license": "MIT",
   "private": false,
@@ -49,6 +49,7 @@
     "mini-css-extract-plugin": "2.7.5",
     "monaco-editor": "0.34.1",
     "monaco-editor-webpack-plugin": "7.0.1",
+    "null-loader": "4.0.1",
     "parse-entities": "2.0.0",
     "path-browserify": "1.0.1",
     "postcss": "7.0.32",
@@ -69,6 +70,7 @@
     "sharp": "0.30.6",
     "style-to-object": "0.3.0",
     "to-vfile": "6.1.0",
+    "typedoc": "0.22.X",
     "typescript": "4.3.5",
     "unified": "9.1.0",
     "unist-util-remove": "2.0.0",
@@ -83,9 +85,9 @@
   },
   "peerDependencies": {
     "@patternfly/patternfly": "^5.0.0-alpha.37",
-    "@patternfly/react-code-editor": "^5.0.0-alpha.54",
-    "@patternfly/react-core": "^5.0.0-alpha.53",
-    "@patternfly/react-table": "^5.0.0-alpha.54",
+    "@patternfly/react-code-editor": "^5.0.0-alpha.84",
+    "@patternfly/react-core": "^5.0.0-alpha.83",
+    "@patternfly/react-table": "^5.0.0-alpha.85",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   }

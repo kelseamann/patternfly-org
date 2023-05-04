@@ -1,7 +1,8 @@
 const path = require('path');
 
-module.exports = (sourceMD, sourceProps) => {
-  // Note: you must source props before sourcing the markdown files, otherwise the props table won't be rendered.
+module.exports = (sourceMD, sourceProps, sourceFunctionDocs) => {
+  // Note: you must source props before sourcing the markdown files, otherwise the props table won't be rendered. Also
+  // source function docs (by calling sourceFunctionDocs with the package name) before sourcing markdown as well.
 
   // Content md
   const contentBase = path.join(__dirname, '../patternfly-docs/content');
@@ -12,6 +13,11 @@ module.exports = (sourceMD, sourceProps) => {
   sourceMD(path.join(contentBase, 'design-guidelines/**/*.md'), 'design-guidelines');
   sourceMD(path.join(contentBase, 'training/**/*.md'), 'training');
   sourceMD(path.join(contentBase, 'extensions/**/*.md'), 'extensions');
+
+  // Gallery pages
+  const galleryBase = path.join(__dirname, '../patternfly-docs/pages');
+  sourceMD(path.join(galleryBase, 'landing-pages/**/*.md'), 'pages-landing-page');
+
 
   // Theme pages
   const themePagesPath = require

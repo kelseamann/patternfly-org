@@ -7,12 +7,14 @@ import { CSSVariables, PropsTable, TableOfContents, Link, AutoLinkHeader, Inline
 import { capitalize, getTitle, slugger, trackEvent } from '../helpers';
 import './mdx.css';
 import { convertToReactComponent } from '@patternfly/ast-helpers';
+import { FunctionsTable } from '../components/functionsTable/functionsTable';
 
 const MDXChildTemplate = ({
   Component,
   source,
   toc = [],
-  index = 0
+  index = 0,
+  id
 }) => {
   const {
     propComponents = [],
@@ -20,8 +22,7 @@ const MDXChildTemplate = ({
     cssPrefix = [],
     optIn,
     beta,
-    katacodaBroken,
-    katacodaLayout
+    functionDocumentation = []
   } = Component.getPageData();
   const cssVarsTitle = cssPrefix.length > 0 && 'CSS variables';
   const propsTitle = propComponents.length > 0 && 'Props';
@@ -59,23 +60,27 @@ const MDXChildTemplate = ({
           To learn more about the process, visit our <Link to="/get-started/about#beta-components">about page</Link> or our <a href="https://github.com/patternfly/patternfly-org/tree/main/beta-component-promotion">Beta components</a> page on GitHub.
         </InlineAlert>
       )}
-      {katacodaBroken && (
-        <InlineAlert variant="warning" title="Down for maintenance">
-          The embedded version of our tutorials are broken, but you can still access our tutorials on <a href="https://www.katacoda.com/patternfly">Katacoda.com <ExternalLinkAltIcon /></a>.
-        </InlineAlert>
-      )}
     </React.Fragment>
   );
+  console.log(id);
   // Create dynamic component for @reach/router
   const ChildComponent = () => (
     <div className="pf-u-display-flex ws-mdx-child-template">
       {toc.length > 1 && (
         <TableOfContents items={toc} />
       )}
-      <div className={katacodaLayout? "ws-mdx-content-katacoda" : "ws-mdx-content"}>
-        <div className={katacodaLayout ? "" : "ws-mdx-content-content"}>
+      <div className="ws-mdx-content">
+        <div className={id === 'All components' ? "" : "ws-mdx-content-content"}>
           {InlineAlerts}
           <Component />
+          {functionDocumentation.length > 0 && (
+            <React.Fragment>
+              <AutoLinkHeader size="h2" className="ws-h2" id="functions">
+                Functions
+              </AutoLinkHeader>
+              <FunctionsTable functionDescriptions={functionDocumentation}/>
+            </React.Fragment>
+          )}
           {propsTitle && (
             <React.Fragment>
               <AutoLinkHeader size="h2" className="ws-h2" id="props">
@@ -100,7 +105,7 @@ const MDXChildTemplate = ({
               <CSSVariables prefix={cssPrefix} />
             </React.Fragment>
           )}
-          {!katacodaLayout && sourceLink && (
+          {sourceLink && (
             <React.Fragment>
               <br />
               <a href={sourceLink} target="_blank" onClick={() => trackEvent('view_source_click', 'click_event', source.toUpperCase())}>View source on GitHub</a>
@@ -167,7 +172,6 @@ export const MDXTemplate = ({
     (e) => e.includes("pages") || e.includes("training")
   );
   const { pathname } = useLocation();
-  const { katacodaLayout } = sources[0].Component.getPageData();
   let activeSource = pathname.replace(/\/$/, '').split('/').pop();
   // get summary text, convert to JSX to display above tabs on component pages
   const componentDasherized = id.split(' ').join('-').toLowerCase();
@@ -200,6 +204,14 @@ export const MDXTemplate = ({
     return "pf-m-light-100";
   };
 
+  const showTabs = (
+    (!isSinglePage && !hideTabName) ||
+    isComponent ||
+    isUtility ||
+    isDemo
+  );
+
+  console.log(id);
   return (
     <React.Fragment>
       <PageGroup>
@@ -209,38 +221,35 @@ export const MDXTemplate = ({
           isWidthLimited
         >
           <TextContent>
-          {!katacodaLayout && <Title headingLevel='h1' size='4xl' id="ws-page-title">{title}</Title>}
-          {isComponent && summary && (<SummaryComponent />)}
+            <Title headingLevel='h1' size='4xl' id="ws-page-title">{title}</Title>
+            {isComponent && summary && (<SummaryComponent />)}
           </TextContent>
         </PageSection>
-        {((!isSinglePage && !hideTabName) ||
-          isComponent ||
-          isUtility ||
-          isDemo) && (
-            <PageSection id="ws-sticky-nav-tabs" stickyOnBreakpoint={{'default':'top'}} type="tabs">
-              <div className="pf-c-tabs pf-m-page-insets pf-m-no-border-bottom">
-                <ul className="pf-c-tabs__list">
-                  {sourceKeys.map((source, index) => (
-                    <li
-                      key={source}
-                      className={css(
-                        'pf-c-tabs__item',
-                        activeSource === source && 'pf-m-current'
-                      )}
-                      // Send clicked tab name for analytics
-                      onClick={() => trackEvent('tab_click', 'click_event', source.toUpperCase())}
-                    >
-                      <Link className="pf-c-tabs__link" to={`${path}${index === 0 ? '' : '/' + source}`}>
-                        {tabNames[source]}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </PageSection>
+        { showTabs && (
+          <PageSection id="ws-sticky-nav-tabs" stickyOnBreakpoint={{'default':'top'}} type="tabs">
+            <div className="pf-c-tabs pf-m-page-insets pf-m-no-border-bottom">
+              <ul className="pf-c-tabs__list">
+                {sourceKeys.map((source, index) => (
+                  <li
+                    key={source}
+                    className={css(
+                      'pf-c-tabs__item',
+                      activeSource === source && 'pf-m-current'
+                    )}
+                    // Send clicked tab name for analytics
+                    onClick={() => trackEvent('tab_click', 'click_event', source.toUpperCase())}
+                  >
+                    <Link className="pf-c-tabs__link" to={`${path}${index === 0 ? '' : '/' + source}`}>
+                      {tabNames[source]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </PageSection>
         )}
         <PageSection id="main-content" isFilled className="pf-m-light-100">
-          {isSinglePage && <MDXChildTemplate {...sources[0]} />}
+          {isSinglePage && <MDXChildTemplate {...sources[0]} id={id}/>}
           {!isSinglePage && (
             <Router className="pf-u-h-100" primary={false}>
               {sources
